@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Wiglaf compute cluster stack.
+Resources:
+  TimeFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: wiglaf_function.lambda_handler
+      Runtime: python3.6
+      CodeUri: ./build/
+      Events:
+        ProxylessGet:
+          Type: Api
+          Properties:
+            Path: /
+            Method: GET
+        ProxylessPost:
+          Type: Api
+          Properties:
+            Path: /
+            Method: POST
+        ProxyGet:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: GET
+        ProxyPost:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: POST
